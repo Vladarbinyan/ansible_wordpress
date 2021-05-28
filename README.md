@@ -6,18 +6,28 @@ Wordpress installer
 Requirements
 ------------
 
-No special requirements; note that this role requires root access, so either run it in a playbook with a global become: yes, or invoke the role in your playbook like:
+For test with local SSL cert you can add to playbook next sentences
 
-- hosts: wp
+---
+- name: Generate pk
+  openssl_privatekey:
+    path: '{{ ssl_cert_path }}/private/{{ server_name }}.pem'
+    size: 2048 
 
-  roles:  
+- name: Generate an OpenSSL Certificate Signing Request
+  openssl_csr:
+    path: '{{ ssl_cert_path }}/csr/{{ server_name }}.csr'
+    privatekey_path: '{{ ssl_cert_path }}/private/{{ server_name }}.pem'
+    common_name: '{{ server_name }}'
 
-    - geerlingguy.nginx 
-    - geerlingguy.php
-    - geerlingguy.mysql
-    - wordpress
-    
-      become: yes
+- name: Generate a Self Signed OpenSSL certificate
+  openssl_certificate:
+    path: '{{ ssl_cert_path }}/crt/{{ server_name }}.crt'
+    privatekey_path: '{{ ssl_cert_path }}/private/{{ server_name }}.pem'
+    csr_path: '{{ ssl_cert_path }}/csr/{{ server_name }}.csr'
+    provider: selfsigned
+
+
 
 
 Role Variables
