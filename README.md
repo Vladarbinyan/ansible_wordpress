@@ -9,11 +9,14 @@ Requirements
 No special requirements; note that this role requires root access, so either run it in a playbook with a global become: yes, or invoke the role in your playbook like:
 
 - hosts: wp
+
   roles:  
+
     - geerlingguy.nginx 
     - geerlingguy.php
     - geerlingguy.mysql
     - wordpress
+    
       become: yes
 
 
@@ -44,8 +47,11 @@ Example Playbook
 - hosts: wp
 
   vars_files:
+
     - vars/wordpress.yml 
+
   roles:
+
     - geerlingguy.nginx 
     - geerlingguy.php
     - geerlingguy.mysql
