@@ -9,8 +9,7 @@ Requirements
 No special requirements; note that this role requires root access, so either run it in a playbook with a global become: yes, or invoke the role in your playbook like:
 
 - hosts: wp
-  roles:
-    - certificate #installs selfsigned cert
+  roles:  
     - geerlingguy.nginx 
     - geerlingguy.php
     - geerlingguy.mysql
@@ -47,7 +46,6 @@ Example Playbook
   vars_files:
     - vars/wordpress.yml 
   roles:
-    - certificate #installs selfsigned cert if needed
     - geerlingguy.nginx 
     - geerlingguy.php
     - geerlingguy.mysql
