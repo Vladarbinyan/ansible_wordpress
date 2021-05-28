@@ -17,8 +17,11 @@ Dependencies
 ------------
 
 The role uses the following roles:
+
 https://galaxy.ansible.com/geerlingguy/nginx
+
 https://galaxy.ansible.com/geerlingguy/php
+
 https://galaxy.ansible.com/geerlingguy/mysql
 
 Install them before using
@@ -49,4 +52,4 @@ MIT
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+https://github.com/Vladarbinyan/
