@@ -1,4 +1,18 @@
 ---
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: '{{ ssl_cert_path }}/private/'
+    state: directory
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: '{{ ssl_cert_path }}/csr/'
+    state: directory
+
+- name: Create a directory if it does not exist
+  ansible.builtin.file:
+    path: '{{ ssl_cert_path }}/crt/'
+    state: directory
 - name: Generate pk
   openssl_privatekey:
     path: '{{ ssl_cert_path }}/private/{{ server_name }}.pem'
