@@ -8,24 +8,19 @@ Requirements
 
 For test with local SSL cert you can add to playbook next sentences
 
----
-- name: Generate pk
-  openssl_privatekey:
-    path: '{{ ssl_cert_path }}/private/{{ server_name }}.pem'
-    size: 2048 
-
-- name: Generate an OpenSSL Certificate Signing Request
-  openssl_csr:
-    path: '{{ ssl_cert_path }}/csr/{{ server_name }}.csr'
-    privatekey_path: '{{ ssl_cert_path }}/private/{{ server_name }}.pem'
-    common_name: '{{ server_name }}'
-
-- name: Generate a Self Signed OpenSSL certificate
-  openssl_certificate:
-    path: '{{ ssl_cert_path }}/crt/{{ server_name }}.crt'
-    privatekey_path: '{{ ssl_cert_path }}/private/{{ server_name }}.pem'
-    csr_path: '{{ ssl_cert_path }}/csr/{{ server_name }}.csr'
-    provider: selfsigned
+  vars_files:
+    - ~/ansible/roles/wordpress/vars/wordpress.yml 
+    - ~/ansible/roles/wordpress/vars/vault.yml
+  tasks:
+  - name: Install self signed SSL cert
+    tags: [certificate]
+    import_tasks: ~/ansible/roles/wordpress/tasks/self_signed_ssl.yml
+    when: generate_local_cert
+  roles:
+    - { role: geerlingguy.nginx, tags: [nginx] } 
+    - { role: geerlingguy.php, tags: [php] }
+    - { role: geerlingguy.mysql, tags: [mysql] } 
+    - { role: wordpress, tags: [mysql] }
 
 
 
