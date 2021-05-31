@@ -1,9 +1,14 @@
 ---
 server_name: "wp.example.com" # тут ваш домен 
 ssl_cert_path: "/etc/ssl"
-mysql_db: "wordpress" 
-mysql_user: "wordpress"
-mysql_password: "WordpreSS0!"
+generate_local_cert: true # Ниже определены пути по которым nginx подхватит сертификат, 
+# если по какой то причине не хотите поднимать с ssl закоментируйте эти строки конфига.   
+
+# ---> moved to VAULT
+# mysql_db: "" 
+# mysql_user: ""
+# mysql_password: "!"
+# <--- moved to VAULT
 
 nginx_vhosts:
   - listen: "80"

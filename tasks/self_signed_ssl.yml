@@ -1,0 +1,18 @@
+---
+- name: Generate pk
+  openssl_privatekey:
+    path: '{{ ssl_cert_path }}/private/{{ server_name }}.pem'
+    size: 2048 
+
+- name: Generate an OpenSSL Certificate Signing Request
+  openssl_csr:
+    path: '{{ ssl_cert_path }}/csr/{{ server_name }}.csr'
+    privatekey_path: '{{ ssl_cert_path }}/private/{{ server_name }}.pem'
+    common_name: '{{ server_name }}'
+
+- name: Generate a Self Signed OpenSSL certificate
+  openssl_certificate:
+    path: '{{ ssl_cert_path }}/crt/{{ server_name }}.crt'
+    privatekey_path: '{{ ssl_cert_path }}/private/{{ server_name }}.pem'
+    csr_path: '{{ ssl_cert_path }}/csr/{{ server_name }}.csr'
+    provider: selfsigned
